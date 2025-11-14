@@ -39,36 +39,18 @@ def ding_callback(msg_signature: str, timeStamp: str, nonce: str, encrypt_conten
             logger.error(f"事件明文不是有效的JSON: {e}")
             raise HTTPException(status_code=400, detail="请求数据格式错误")
 
-        # 3. 处理更具体的事件类型 ---
-
-        # A. 处理“验证回调URL有效性”事件
+        # 处理“验证回调URL有效性”事件
         if event_type == "check_url":
             # 这通常是ISV应用或新版企业应用在后台点击“验证有效性”时收到的
-            logger.info(f"收到回调URL验证请求: {event_type}")
+            logger.info(f"收到回调URL验证请求: {event_type}, 回调URL正确✔️")
 
         elif event_type in ("check_create_suite_url", "check_update_suite_url"):
             # 这通常是ISV应用或新版企业应用在后台点击“验证有效性”时收到的
-            logger.info(f"收到回调URL验证请求: {event_type}")
-            # 钉钉文档要求此时返回加密的 "success"
-
-        # # B. 处理“suite_ticket”推送 (ISV应用必须)
-        # elif event_type == "suite_ticket":
-        #     ticket = event_data.get("SuiteTicket")
-        #     logger.info(f"收到 SuiteTicket: {ticket[:10]}...")
-        #     # TODO: 你必须在这里将 suite_ticket 持久化存储 (例如存入 Redis 或 数据库)
-        #     response_content = "success"
-
-        # C. 处理业务事件 (例如：员工入职)
-        elif event_type == "user_add_org":
-            user_id = event_data.get("UserId")
-            logger.info(f"处理员工入职事件: {user_id}")
-            # TODO: 在这里执行你的业务逻辑
-
-        # D. 其他你订阅的事件...
+            logger.info(f"发生事件: {event_type}")
 
         else:
-            logger.info(f"收到未处理的事件类型: {event_type}")
-            raise HTTPException(status_code=400, detail=f"未处理事件类型: {event_type}")
+            # 其他未处理事件类型
+            logger.info(f"发生未处理事件: {event_type}")
 
         # 3. 生成加密响应
         response_content = "success"

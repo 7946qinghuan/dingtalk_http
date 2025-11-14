@@ -19,8 +19,10 @@ class Settings(BaseSettings):
     RobotCode: str = Field(description="钉钉机器人的RobotCode")
     AppID: str = Field(description="钉钉机器人的AppID")
     AgentID: str = Field(description="钉钉机器人的AgentID")
-    Client_ID: str = Field(description="钉钉机器人的Client_ID")
-    Client_Secret: str = Field(description="钉钉机器人的Client_Secret")
+    Client_ID: str = Field(description="钉钉机器人的Client_ID (原 AppKey 和 SuiteKey)")
+    Client_Secret: str = Field(
+        description="钉钉机器人的Client_Secret (原 AppSecret 和 SuiteSecret)"
+    )
     ase_key: str = Field(description="钉钉机器人的ase_key")
     token: str = Field(description="钉钉机器人的token")
     CorpID: str = Field(description="钉钉机器人的CorpID")

@@ -1,10 +1,9 @@
 from fastapi import APIRouter
 
 from app.schemas.health import HealthCheckResponse
-from app.middleware.logging_middleware import LoggingRoute
 from app.config import api_paths
 
-router = APIRouter(tags=["健康检查"], route_class=LoggingRoute)
+router = APIRouter(tags=["健康检查"])
 
 
 # 健康检查接口

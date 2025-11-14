@@ -2,8 +2,14 @@
 
 
 class APIPaths:
-    # 基础URL前缀（统一管理版本，后续升级只需改这里）
-    API_PREFIX = "/v1"
+    # 基础URL前缀
+    API_ROOT = "/"
+
+    # 版本编号
+    API_VERSION = "v1"
+
+    # 版本接口
+    API_PREFIX = f"{API_ROOT}{API_VERSION}"
 
     # 健康检查接口
     HEALTH_CHECK = f"{API_PREFIX}/health"

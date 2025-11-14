@@ -3,7 +3,7 @@ import logging
 
 from app.schemas.callback import DingCallbackRequest, DingCallbackResponse
 from app.config import api_paths
-from app.services.ding_http_callback import ding_callback
+from app.services.ding_http_callback_services import ding_callback
 
 logger = logging.getLogger(__name__)
 
@@ -36,9 +36,7 @@ async def verify_dingtalk_callback(
         # 2. 调用服务层处理回调事件
         resp_data = ding_callback(msg_signature, timestamp, nonce, body.encrypt)
         logger.debug(f"回调处理成功, 返回数据: {resp_data}")
-        # FastAPI 会自动处理成 JSONResponse
         return resp_data
-        # return JSONResponse(content=resp_data, status_code=200) # (不再需要)
 
     except HTTPException:
         # 重新抛出已知的HTTP异常 (来自服务层)
